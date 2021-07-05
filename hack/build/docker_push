@@ -4,7 +4,7 @@ if ! which docker > /dev/null; then
 	echo "docker needs to be installed"
 	exit 1
 fi
-
+IMAGE=etcd-operator:0.9.4
 : ${IMAGE:?"Need to set IMAGE, e.g. gcr.io/coreos-k8s-scale-testing/etcd-operator"}
 
 echo "building container..."
@@ -12,5 +12,6 @@ docker build --tag "${IMAGE}" -f hack/build/Dockerfile . 1>/dev/null
 
 # For gcr users, do "gcloud docker -a" to have access.
 
-echo "pushing container..."
+echo "pushing container... image: ${IMAGE}"
+
 docker push "${IMAGE}" 1>/dev/null
